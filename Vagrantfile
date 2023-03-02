@@ -14,6 +14,10 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "fedora/34-cloud-base"
   config.vm.synced_folder ".", "/vagrant", type: "virtualbox"	
+  config.vm.provider "virtualbox" do |vb|
+  vb.memory = "1024"
+  vb.cpus = "2"
+  end 
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -32,7 +36,6 @@ Vagrant.configure("2") do |config|
   config.vm.network(
 	"forwarded_port", guest: 8000, host: 8000, host_ip: "127.0.0.1"
   )
-
   config.vm.provision "shell", path: "setup.sh", privileged: false
 
   # Create a private network, which allows host-only access to the machine
@@ -54,10 +57,7 @@ Vagrant.configure("2") do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  config.vm.provider "virtualbox" do |vb|
-	vb.memory = "1024"
-	vb.cpus = "2"
-  end 
+  
   #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
   #
